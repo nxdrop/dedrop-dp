@@ -3,7 +3,7 @@
     <div class="meta-nft__banner">
       <div class="inner-backbox"></div>
       <div class="meta-nft__avatar-wrap">
-        <v-avatar size="130" class="club-avatar">
+        <v-avatar :size="avatarSize" class="club-avatar">
           <img :src="azukiLogo" alt="azuki" />
         </v-avatar>
       </div>
@@ -21,8 +21,17 @@ export default {
   components: {},
   data: () => ({
     azukiLogo,
+    avatarSize: 130,
   }),
-  computed: {},
+  computed: {
+    isXs: () => this.$vuetify.breakpoint.name === 'xs',
+  },
+  mounted() {
+    if (this.$vuetify.breakpoint.name === 'xs') {
+      console.log('>>>>>>>>>>>>>>>>>>>>>>')
+      this.avatarSize = 80
+    }
+  },
   methods: {},
 }
 </script>
@@ -35,7 +44,6 @@ export default {
     &__banner {
       position: relative;
       width: 100%;
-      border: 1px solid red;
 
       & > div.inner-backbox {
         width: 100%;
@@ -54,6 +62,33 @@ export default {
 
         & > div.club-avatar {
           margin-top: -65px;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-device-width: 480px) {
+  .meta {
+    &-nft {
+      &__banner {
+        & > div.inner-backbox {
+          width: 100%;
+          height: 180px;
+          background: url('~@/assets/images/azuki_banner.jpg') no-repeat;
+          background-size: auto 100%;
+        }
+
+        & > div.meta-nft__avatar-wrap {
+          width: 100%;
+          height: 80px;
+          display: flex;
+          flex-flow: column nowrap;
+          justify-content: center;
+          align-items: center;
+
+          & > div.club-avatar {
+            margin-top: -65px;
+          }
         }
       }
     }
